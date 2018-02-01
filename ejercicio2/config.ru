@@ -1,0 +1,17 @@
+# config.ru
+require 'rack'
+use Rack::Reloader, 0
+class MiSegundaWebApp
+	def call(env)
+		if env['REQUEST_PATH'] == '/'
+			[202, { 'Content-Type' => 'text/html' }, ['<h1> Esta es la raiz! </h1>']]
+		elsif env['REQUEST_PATH'] == '/index'
+			[200, { 'Content-Type' => 'text/html' }, ['<h1> Estas en el Index!!! </h1>']]
+		elsif env['REQUEST_PATH'] == '/otro'
+			[200, { 'Content-Type' => 'text/html' }, ['<h1> Estas en otro landing!!! </h1>']]
+		else
+			[404, {'Content-Type' => 'text/html'}, [File.read("404.html")]]
+		end
+	end
+end
+run MiSegundaWebApp.new
